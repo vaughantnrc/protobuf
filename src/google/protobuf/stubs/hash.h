@@ -104,7 +104,10 @@
 // And.. they are moved back to stdext in MSVC 2013 (haven't checked 2012). That
 // said, use unordered_map for MSVC 2010 and beyond is our safest bet.
 #elif defined(_MSC_VER)
-# if _MSC_VER >= 1600  // Since Visual Studio 2010
+# if _MSC_VER >= 1900  // Since Visual Studio 2022, hash_map does not appear to exist
+#  undef GOOGLE_PROTOBUF_HAVE_HASH_MAP
+#  undef GOOGLE_PROTOBUF_HAVE_HASH_SET
+# elif _MSC_VER >= 1600  // Since Visual Studio 2010
 #  define GOOGLE_PROTOBUF_HAS_CXX11_HASH
 #  define GOOGLE_PROTOBUF_HASH_COMPARE std::hash_compare
 # elif _MSC_VER >= 1500  // Since Visual Studio 2008
